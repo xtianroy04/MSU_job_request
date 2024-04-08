@@ -16,14 +16,14 @@ class UserSeeder extends Seeder
     {
         // Create a cost center and get its ID
         $costCenterId = DB::table('cost_centers')->insertGetId([
-            'name' => 'Sample Cost Center',
-            'code' => 'CC001',
+            'name' => 'College of Marine and Allied Sciences',
+            'code' => 'CCMAS-0001',
         ]);
 
         // Create a user and associate the cost center with them
         DB::table('users')->insert([
-            'first_name' => 'Christian Roy',
-            'last_name' => 'Mabilin',
+            'first_name' => 'Casseee',
+            'last_name' => 'Orion',
             'email' => 'admin@gmail.com',
             'contact_number' => '09922583516',
             'roles' => 'Admin',
