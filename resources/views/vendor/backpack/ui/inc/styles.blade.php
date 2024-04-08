@@ -2,7 +2,7 @@
 {{-- <link href="{{ asset('assets/theme/css/animate.compat.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/theme/css/noty.css') }}" rel="stylesheet"> --}}
 @basset('https://unpkg.com/noty@3.2.0-beta-deprecated/lib/noty.css')
-
+<link rel="shortcut icon" href="{{ asset('images/logo.png')}}" type="image/x-icon">
 {{-- <link href="{{ asset('assets/theme/css/line-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/theme/fonts/la-regular-400.woff2') }}" rel="preload" as="font" type="font/woff2" crossorigin>
 <link href="{{ asset('assets/theme/fonts/la-solid-900.woff2') }}" rel="preload" as="font" type="font/woff2" crossorigin>
