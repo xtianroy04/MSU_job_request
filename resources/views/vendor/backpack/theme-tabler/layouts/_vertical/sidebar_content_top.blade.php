@@ -18,6 +18,17 @@
                 </span>
                 {{ backpack_user()->first_name }} {{ backpack_user()->last_name }}
             </a>
+            {{-- @php
+                $roles = explode(',', backpack_user()->roles);
+            @endphp
+            @foreach($roles as $role)
+                <h5 class="text-center text-secondary">
+                    {{ $role }}
+                    @if (!$loop->last)
+                        ,
+                    @endif
+                </h5>
+            @endforeach --}}
             <div class="dropdown-menu" data-bs-popper="static">
                 @if(config('backpack.base.setup_my_account_routes'))
                     <a class="dropdown-item" href="{{ route('backpack.account.info') }}">

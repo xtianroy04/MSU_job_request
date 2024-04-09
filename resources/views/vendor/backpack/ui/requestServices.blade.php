@@ -109,7 +109,10 @@
                                         <th scope="col">Service Type</th>
                                         <th scope="col">Details</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Rating</th>
+                                        <th scope="col">Assigned Personnel</th>
+                                        <th scope="col">Date Requested</th>
+                                        <th scope="col">Date Served</th>
+                                        <th scope="col">Rating</th>          
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,6 +133,26 @@
                                                     <span class="badge badge-secondary">{{ $request->status }}</span>
                                                 @endif
                                             </td>
+                                            @if($request->assigned)
+                                            <td>
+                                                {{ $request->assignedPersonnel->first_name }}  {{ $request->assignedPersonnel->last_name }}
+                                            </td>
+                                            @else
+                                                <td>
+                                                    None
+                                                </td>
+                                            @endif
+                                                 <td>{{ date('F j, Y g:i A', strtotime($request->created_at)) }}</td>
+                                            @if($request->date_served)
+                                                 <td>{{ date('F j, Y', strtotime($request->date_served)) }}</td>
+                                            @else
+                                                 <td>None</td>
+                                            @endif
+                                            @if($request->service_rating === Null)
+                                                <td>
+                                                    None
+                                                </td>
+                                            @endif
                                             @if (!$request->service_rating)
                                                 @if ($request->assigned)
                                                     <td>

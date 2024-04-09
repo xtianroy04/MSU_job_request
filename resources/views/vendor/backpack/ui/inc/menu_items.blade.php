@@ -15,7 +15,7 @@
         @endif
 
         @if(in_array('Requester', $roles))
-              <li class="nav-item"><a class="nav-link" href="{{ backpack_url('requests') }}"><i class="la la-wrench"></i> Service Request</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ backpack_url('requests') }}"><i class="la la-wrench"></i> Request Service</a></li>
         @endif
 
         @if(in_array('Manager1', $roles))

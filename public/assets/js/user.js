@@ -19,8 +19,8 @@ function updateCheckboxesFromHiddenField() {
             case 'Requester (Secretary | Chairman)':
                 checkbox.checked = selectedCapabilities.includes('Requester');
                 break;
-            case 'Personel':
-                checkbox.checked = selectedCapabilities.includes('Personel');
+            case 'Personnel':
+                checkbox.checked = selectedCapabilities.includes('Personnel');
                 break;
         }
     });

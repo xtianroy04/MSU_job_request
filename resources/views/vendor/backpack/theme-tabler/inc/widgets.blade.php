@@ -3,7 +3,7 @@
 
 		@if (is_array($currentWidget))
 			@php
-				$currentWidget = \Backpack\CRUD\app\Library\Widget::add($currentWidget);
+				$currentWidget = App\Library\Widget::add($currentWidget);
 			@endphp
 		@endif
 

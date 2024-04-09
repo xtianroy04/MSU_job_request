@@ -66,6 +66,13 @@
                             </div>
                         </div>
                         @endif
+                        @if($service->status === "Declined")
+                            <div class="form-group text-center">
+                                <div class="col-md-12">
+                                    <img src="{{ asset('images/declined.png') }}" alt="declined" width="250px">
+                                </div>
+                            </div>
+                        @endif
                         @if($service->e_signature)
                             <div class="form-group row">
                                 <label for="eSignature" class="col-md-4 col-form-label text-md-right">E-Signature:</label>

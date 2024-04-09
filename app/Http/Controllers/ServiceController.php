@@ -69,13 +69,13 @@ class ServiceController extends Controller
         if ($service->status === 'Approved') {
             return redirect()->back()->with('error', 'Request has already been approved.');
         } elseif ($service->status === 'Declined') {
-            return redirect()->back()->with('error', 'Request has already been disapproved.');
+            return redirect()->back()->with('error', 'Request has already been declined.');
         }
 
         $service->status = 'Declined';
         $service->save();
 
-        return redirect()->back()->with('success', 'Request disapproved successfully.');
+        return redirect()->back()->with('success', 'Request declined successfully.');
     }
 
     public function show($id)
@@ -146,6 +146,7 @@ class ServiceController extends Controller
         $serviceTypes = ServiceType::all();
         $services = Service::where('user_id', $userId)
                             ->with('serviceType')
+                            ->orderBy('created_at', 'desc')
                             ->paginate('10');
 
         return view('vendor/backpack/ui/requestServices', ['services' => $services, 'serviceTypes' => $serviceTypes]);

@@ -45,7 +45,6 @@
         {{ session('success') }}
     </div>
 @endif
-{{-- Table checkin record --}}
 <div class="container-fluid">
     <form action="{{ route('services.search') }}" method="GET" class="mb-3">
         <div class="input-group">
