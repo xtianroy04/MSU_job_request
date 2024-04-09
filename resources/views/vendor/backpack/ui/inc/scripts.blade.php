@@ -1,8 +1,13 @@
-@basset('https://unpkg.com/jquery@3.6.1/dist/jquery.min.js')
-@basset('https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js')
+{{-- @basset('https://unpkg.com/jquery@3.6.1/dist/jquery.min.js') 
+@basset('https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js') 
 @basset('https://unpkg.com/noty@3.2.0-beta-deprecated/lib/noty.min.js')
-@basset('https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js')
+@basset('https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js') --}}
+<script src="{{ asset('theme-tabler/js/jquery-3.6.1.min.js')}}"></script>
+<script src="{{ asset('theme-tabler/js/popper.min.js') }}"></script>
+<script src="{{ asset('theme-tabler/js/noty.min.js')}}"></script>
+<script src="{{ asset('theme-tabler/js/sweetalert.min.js') }}"></script>
 
+<link rel="stylesheet" href="{{ asset('theme-tabler/js/tabler.js')}}">
 @if (backpack_theme_config('scripts') && count(backpack_theme_config('scripts')))
     @foreach (backpack_theme_config('scripts') as $path)
         @if(is_array($path))
@@ -30,5 +35,6 @@
 @endif
 
 @push('after_scripts')
-    @basset(base_path('vendor/backpack/crud/src/resources/assets/js/common.js'))
+    <script src="{{ asset('theme-tabler/js/common.js')}}"></script>
+    {{-- @basset(base_path('vendor/backpack/crud/src/resources/assets/js/common.js')) --}}
 @endpush

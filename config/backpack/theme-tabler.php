@@ -39,8 +39,8 @@ return [
      *   - boom!
      */
     'styles' => [
-        base_path('vendor/backpack/theme-tabler/resources/assets/css/color-adjustments.css'),
-        base_path('vendor/backpack/theme-tabler/resources/assets/css/colors.css'),
+        base_path('public/theme-tabler/css/color-adjustments.css'),
+        base_path('public/theme-tabler/css/colors.css'),
     ],
 
     /**
@@ -95,7 +95,7 @@ return [
         /**
          * When true, the password input will have a toggle button to show/hide the password.
          */
-        'showPasswordVisibilityToggler' => false,
+        'showPasswordVisibilityToggler' => true,
     ],
 
     /**

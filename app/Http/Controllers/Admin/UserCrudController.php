@@ -16,7 +16,7 @@ class UserCrudController extends CrudController
 {
     use \App\Http\Controllers\Operations\ListOperation;
     use \App\Http\Controllers\Operations\CreateOperation;
-    use \App\Http\Controllers\Operations\UpdateOperation;
+    // use \App\Http\Controllers\Operations\UpdateOperation;
     // use \App\Http\Controllers\Operations\DeleteOperation;
     use \App\Http\Controllers\Operations\ShowOperation;
 
