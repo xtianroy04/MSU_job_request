@@ -200,7 +200,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7" class="text-center alert alert-danger">No data found</td>
+                                            <td colspan="9" class="text-center alert alert-danger">No data found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
