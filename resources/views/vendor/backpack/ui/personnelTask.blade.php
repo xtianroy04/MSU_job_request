@@ -1,7 +1,30 @@
 @extends(backpack_view('blank'))
 
+@section('before_breadcrumbs_widgets')
+<div class="modal fade" id="doneServiceModal" tabindex="-1" role="dialog" aria-labelledby="doneServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="doneServiceModalLabel">Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure this request is complete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="done()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
     <h1 class="text-capitalize ms-3" bp-section="page-heading">My Tasks</h1>
+    @if(session('success'))
+        <div id="successMessage" class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="container-fluid">
         <form action="{{ route('personnelTask') }}" method="GET" class="mb-3">
             <div class="input-group">
@@ -21,7 +44,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive mt-4">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Service Name</th>
@@ -30,7 +53,8 @@
                                         <th scope="col">Details</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Rating</th>
-                                        <th scope="col">Requested By</th>                          
+                                        <th scope="col">Requested By</th>      
+                                        <th scope="col">Action</th>                     
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,7 +65,7 @@
                                             <td>{{ $request->serviceType->name }}</td>
                                             <td>{{ $request->details }}</td>
                                             <td>
-                                                @if ($request->service_rating)
+                                                @if ($request->date_served)
                                                     <span class="badge bg-success">Completed</span>
                                                 @else
                                                     <span class="badge badge-secondary">Pending</span>
@@ -83,8 +107,17 @@
                                                 @endif
                                             </td>
                                             <td>{{ $request->user->first_name }} {{ $request->user->last_name }}</td>
-
-                                            {{-- <td>{{ date('F j, Y g:i A', strtotime($i->checkin_time)) }}</td> --}}
+                                            @if( !$request->date_served )
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm" onclick="showConfirmationModal()">
+                                                    <i class="la la-check"></i>&nbsp;Done
+                                                </button>
+                                                <form id="Form" action="{{ route('service.done', ['id' => $request->id]) }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                </form>
+                                            </td>
+                                            @endif
                                         </tr>
                                     @empty
                                         <tr>
@@ -103,6 +136,13 @@
             </div>
         </div>
     </div>
+    <script>
+        @if(session('success'))
+            setTimeout(function () {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        @endif
+    </script>
     <script>
         const servicesRoute = '{{ route("personnelTask") }}';
     </script>

@@ -6,3 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// Done Button
+function showConfirmationModal() {
+    $('#doneServiceModal').modal('show');
+}
+function closeModal() {
+    $('#doneServiceModal').modal('hide');
+}
+function done() {
+    $('#Form').submit();
+}

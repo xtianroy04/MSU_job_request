@@ -33,7 +33,11 @@ class AdminController extends Controller
         $widgets = [];
         $progressWidgets = [];
         $accomplishedRequest = Service::whereNotNull('service_rating')  ->orderBy('created_at', 'desc')->paginate(10);
-        $needPersonnelRequest = Service::whereNull('assigned')  ->orderBy('created_at', 'desc')->paginate(10);
+        $needPersonnelRequest = Service::where('assigned')
+                                        ->whereNull('service_rating') 
+                                        ->where('status', 'Approved')     
+                                        ->orderBy('created_at', 'desc')
+                                        ->paginate(10);
         $satisfiedRequests = Service::where('assigned', $user->id)->whereBetween('service_rating', [4, 5])->paginate(10);
     
         if ($user) {
@@ -200,7 +204,7 @@ class AdminController extends Controller
                     ->accentColor('success') 
                     ->ribbon(['top', 'la-thumbs-up']) 
                     ->progressClass('progress-bar')
-                    ->value(Service::where('assigned', $user->id)->where('service_rating')->count())
+                    ->value(Service::where('assigned', $user->id)->whereNotNull('service_rating')->count())
                     ->description('Completed Task');
             }
         }

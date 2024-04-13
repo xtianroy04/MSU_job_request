@@ -71,6 +71,7 @@
                                     <th scope="col">Service Type</th>
                                     <th scope="col">Details</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Requested by</th>
                                     <th scope="col">Date Requested</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -93,6 +94,7 @@
                                                 <span class="badge badge-secondary">{{ $request->status }}</span>
                                             @endif
                                         </td>
+                                        <td>{{ $request->user->first_name }} {{ $request->user->last_name }}</td>
                                         <td>{{ date('F j, Y g:i A', strtotime($request->created_at)) }}</td>
                                         @if($request->status === "Pending")
                                             <td>
