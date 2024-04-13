@@ -167,6 +167,7 @@ class ServiceController extends Controller
         $userId = auth('backpack')->user()->id;
 
         $service = new Service();
+        
         $service->user_id = $userId; 
         $service->service_provider = $validatedData['serviceProvider'];
         $service->service_name = $validatedData['serviceName'];

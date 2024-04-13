@@ -18,38 +18,38 @@
                                     <ul class="timeline">
 
                                         @if ($service->service_rating)
-    <li class="timeline-item">
-        <div class="timeline-body">
-            <div class="timeline-meta">
+                                            <li class="timeline-item">
+                                                <div class="timeline-body">
+                                                    <div class="timeline-meta">
                 <div class="d-inline-flex flex-column px-2 py-1 text-success-emphasis bg-success-subtle border border-success-subtle rounded-2 text-md-end">
-                    <span class="fw-bold">Rated On:</span>
-                    <span>{{ date('F j, Y', strtotime($service->date_rated)) }}</span>
-                </div>
-            </div>
-            <div class="timeline-content timeline-indicator">
-                <div class="card border-0 shadow">
-                    <div class="card-body p-xl-4">
-                        <h2 class="card-title mb-2">
-                            {{ $service->assignedPersonnel->first_name }}
-                            {{ $service->assignedPersonnel->last_name }}
-                        </h2>
-                        <h6 class="card-subtitle text-secondary mb-3">
-                            @for ($i = 1; $i <= 5; $i++)
-                                @if ($i <= $service->service_rating)
-                                    <i class="las la-star text-warning"></i>
-                                @else
-                                    <i class="las la-star text-secondary"></i>
-                                @endif
-                            @endfor
-                            {{ $service->service_rating }}/5
-                        </h6>
+                                                            <span class="fw-bold">Rated On:</span>
+                                                            <span>{{ date('F j, Y', strtotime($service->date_rated)) }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-content timeline-indicator">
+                                                        <div class="card border-0 shadow">
+                                                            <div class="card-body p-xl-4">
+                                                                <h2 class="card-title mb-2">
+                                                                    {{ $service->assignedPersonnel->first_name }}
+                                                                    {{ $service->assignedPersonnel->last_name }}
+                                                                </h2>
+                                                                <h6 class="card-subtitle text-secondary mb-3">
+                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                        @if ($i <= $service->service_rating)
+                                                                            <i class="las la-star text-warning"></i>
+                                                                        @else
+                                                                            <i class="las la-star text-secondary"></i>
+                                                                        @endif
+                                                                    @endfor
+                                                                    {{ $service->service_rating }}/5
+                                                                </h6>
                         <p class="card-text m-0">Thank you for choosing our service. Your feedback helps us improve.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
-@endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
 
 
                                         @if ($service->date_served)
