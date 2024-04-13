@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const rangeInput = document.querySelector('.form-range');
     const starsContainer = document.querySelector('.rating-stars');
+    
+    const defaultRating = 3;
+    const defaultStars = '&#9733;'.repeat(defaultRating);
+    starsContainer.innerHTML = defaultStars;
+
     rangeInput.addEventListener('input', function () {
         const rating = this.value;
         const stars = '&#9733;'.repeat(rating); 

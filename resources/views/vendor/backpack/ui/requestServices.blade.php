@@ -66,7 +66,7 @@
                         <input type="hidden" name="service_id" id="service_id">
                         <div class="mb-3">
                             <label for="rating" class="form-label">Rating:</label>
-                            <input type="range" id="rating" name="rating" min="0" max="5" step="1"
+                            <input type="range" id="rating" name="rating" min="1" max="5" step="1"
                                 class="form-range">
                             <div class="rating-stars text-center"></div>
                         </div>
@@ -94,6 +94,10 @@
         <div id="successMessage" class="alert alert-success">
             {{ session('success') }}
         </div>
+    @elseif(session('error'))
+        <div id="successMessage" class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
     <div class="container-fluid">
         <div class="row">
@@ -101,7 +105,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive mt-4">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Service Name</th>
@@ -109,20 +113,18 @@
                                         <th scope="col">Service Type</th>
                                         <th scope="col">Details</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Assigned Personnel</th>
                                         <th scope="col">Date Requested</th>
-                                        <th scope="col">Date Served</th>
-                                        <th scope="col">Rating</th>          
+                                        <th scope="col">Rating</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($services as $request)
                                         <tr>
-                                            <td>{{ $request->service_name }}</td>
-                                            <td>{{ $request->service_provider }}</td>
-                                            <td>{{ $request->serviceType->name }}</td>
-                                            <td>{{ $request->details }}</td>
-                                            <td>
+                                            <td onclick="window.location='{{ route('service.details', $request->id) }}';">{{ $request->service_name }}</td>
+                                            <td onclick="window.location='{{ route('service.details', $request->id) }}';">{{ $request->service_provider }}</td>
+                                            <td onclick="window.location='{{ route('service.details', $request->id) }}';">{{ $request->serviceType->name }}</td>
+                                            <td onclick="window.location='{{ route('service.details', $request->id) }}';">{{ $request->details }}</td>
+                                            <td onclick="window.location='{{ route('service.details', $request->id) }}';">
                                                 @if ($request->status === 'Approved')
                                                     <span class="badge bg-success">{{ $request->status }}</span>
                                                 @elseif($request->status === 'Cancelled')
@@ -133,26 +135,7 @@
                                                     <span class="badge badge-secondary">{{ $request->status }}</span>
                                                 @endif
                                             </td>
-                                            @if($request->assigned)
-                                            <td>
-                                                {{ $request->assignedPersonnel->first_name }}  {{ $request->assignedPersonnel->last_name }}
-                                            </td>
-                                            @else
-                                                <td>
-                                                    None
-                                                </td>
-                                            @endif
-                                                 <td>{{ date('F j, Y g:i A', strtotime($request->created_at)) }}</td>
-                                            @if($request->date_served)
-                                                 <td>{{ date('F j, Y', strtotime($request->date_served)) }}</td>
-                                            @else
-                                                 <td>None</td>
-                                            @endif
-                                            @if($request->service_rating === Null)
-                                                <td>
-                                                    None
-                                                </td>
-                                            @endif
+                                            <td onclick="window.location='{{ route('service.details', $request->id) }}';">{{ date('F j, Y g:i A', strtotime($request->created_at)) }}</td>
                                             @if (!$request->service_rating)
                                                 @if ($request->assigned)
                                                     <td>
@@ -164,7 +147,7 @@
                                                     </td>
                                                 @endif
                                             @else
-                                                <td>
+                                                <td onclick="window.location='{{ route('service.details', $request->id) }}';">
                                                     @if ($request->service_rating >= 1)
                                                         <i class="las la-star text-warning"></i>
                                                     @else
@@ -196,7 +179,6 @@
                                                     @endif
                                                 </td>
                                             @endif
-
                                         </tr>
                                     @empty
                                         <tr>

@@ -28,6 +28,7 @@ Route::group([
     Route::get('requests', [ServiceController::class, 'index'])->name('requests');
     Route::post('services/store', [ServiceController::class, 'store'])->name('services.store');
     Route::put('/rate-service', [ServiceController::class, 'rateService'])->name('rate.service');
+    Route::get('/serviceDetails/{id}', [ServiceController::class, 'showDetails'])->name('service.details');
 
     // Manager Routes
     Route::get('services', [ServiceController::class, 'services'])->name('services');
@@ -42,6 +43,6 @@ Route::group([
 
     // Personnel Tasks
     Route::get('personnelTask', [ServiceController::class, 'task'])->name('personnelTask');
-
+    Route::put('/services/done/{id}', [ServiceController::class, 'serviceDone'])->name('service.done');
 
 }); // this should be the absolute last line of this file

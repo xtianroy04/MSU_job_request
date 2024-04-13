@@ -9,6 +9,7 @@ use App\Models\ServiceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceController extends Controller
 {
@@ -73,6 +74,7 @@ class ServiceController extends Controller
         }
 
         $service->status = 'Declined';
+        $service->date_declined = Carbon::now()->toDateString();
         $service->save();
 
         return redirect()->back()->with('success', 'Request declined successfully.');
@@ -134,6 +136,7 @@ class ServiceController extends Controller
         }
     
         $service->assigned = $request->personnel;
+        $service->date_assigned = Carbon::now()->toDateString();
         $service->save();
     
         return redirect()->back()->with('success', 'Personnel assigned successfully.');
@@ -175,17 +178,38 @@ class ServiceController extends Controller
         return redirect()->route('requests')->with('success', 'Service requested successfully!');
     }
 
+    // View details
+    public function showDetails($id)
+    {
+        try {
+            $userId = auth('backpack')->user()->id;
+            $service = Service::findOrFail($id);
+
+            if ($service->user_id !== $userId) {
+                return redirect()->back()->with('error', 'You are not authorized to view this service.');
+            }
+
+            return view('vendor/backpack/ui/showDetails', compact('service'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service not found.');
+        }
+    }
+
     // Rating
     public function rateService(Request $request)
     {
         $request->validate([
             'service_id' => 'required|exists:services,id', 
-            'rating' => 'required|numeric|min:0|max:5',
+            'rating' => 'required|numeric|min:1|max:5',
         ]);
+        
+        if ($request->rating === null) {
+            return redirect()->back()->with('error', 'Please provide a rating.');
+        }
 
         $service = Service::findOrFail($request->service_id);
         $service->service_rating = $request->rating;
-        $service->date_served = Carbon::now()->toDateString();;
+        $service->date_rated = Carbon::now()->toDateString();;
         $service->save();
 
         return redirect()->back()->with('success', 'Rating submitted successfully.');
@@ -211,6 +235,20 @@ class ServiceController extends Controller
         }
         $services = $servicesQuery->paginate(10);
         return view('vendor/backpack/ui/personnelTask', compact('services', 'searchQuery'));
+    }
+
+    public function serviceDone($id)
+    {
+        $service = Service::findOrFail($id);
+        
+        if ($service->date_served) {
+            return redirect()->back()->with('error', 'Request has already been completed.');
+        } 
+
+        $service->date_served = Carbon::now()->toDateString();
+        $service->save();
+    
+        return redirect()->back()->with('success', 'Request completed successfully.');
     }
 
     

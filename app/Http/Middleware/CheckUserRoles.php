@@ -58,6 +58,7 @@ class CheckUserRoles
             case 'requests':
             case 'services.store':
             case 'rate.service':
+            case 'service.details':
                 return in_array('Requester', $roles); // Submit Request
             case 'services':
             case 'services.search':
@@ -69,6 +70,7 @@ class CheckUserRoles
             case 'assign.personnel':
                 return in_array('Manager2', $roles);
             case 'personnelTask';
+            case 'service.done':
                 return in_array('Personnel', $roles);
             default:
                 return false; // Default Route

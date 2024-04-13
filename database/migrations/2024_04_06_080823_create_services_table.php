@@ -43,7 +43,10 @@ return new class extends Migration
             $table->integer('service_rating')->nullable();
             $table->string('additional_field')->nullable();
             $table->string('e_signature')->nullable();
+            $table->date('date_assigned')->nullable();
+            $table->date('date_declined')->nullable();
             $table->date('date_served')->nullable();
+            $table->date('date_rated')->nullable();
             $table->date('date_approved')->nullable();
             $table->timestamps();
         });            
@@ -54,7 +57,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
         Schema::dropIfExists('services');
+        Schema::dropIfExists('service_types');
     }
 };
