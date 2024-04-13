@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Service;
 use App\Models\ServiceType;
 use Illuminate\Http\Request;
+use App\Mail\ServiceRequested;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -175,6 +177,16 @@ class ServiceController extends Controller
         $service->details = $validatedData['details'];
         $service->status = 'Pending';
         $service->save();
+
+        // // Send email to users with role "Manager1"
+        // $users = User::all();
+
+        // foreach ($users as $user) {
+        //     $roles = explode(',', $user->roles);
+        //     if (in_array('Manager1', $roles)) {
+        //         Mail::to($user->email)->send(new ServiceRequested($service));
+        //     }
+        // }
         
         return redirect()->route('requests')->with('success', 'Service requested successfully!');
     }
